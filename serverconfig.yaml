@@ -1,0 +1,8 @@
+
+Network:
+  Host: ""    # Searches all interfaces ...
+  Port: 1337  # .. on this port
+Server:
+    MaxConnections: 3 # max number of accepted connections
+    AcceptedFailedConntections: 10 # amount of failed allowed connections before refusing any new ones
+
