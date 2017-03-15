@@ -1,0 +1,13 @@
+
+	----------------------------------------
+	----------- Configure server -----------
+	----------------------------------------
+
+In order for the server to be able to accept incomming external
+calls the GateWay router has to be configured for portforwarding. 
+
+When setting up rules for portforwarding its important to set the
+internal/local port to start at the value specified in the 
+configfile (serverconfig.yaml).
+
+Also make sure that the local IP address is that of the servers. 

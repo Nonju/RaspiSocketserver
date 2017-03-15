@@ -11,6 +11,7 @@
 
 import socket
 import sys # For exiting program
+import os
 import yaml # For loading config-file
 from _thread import * # For handeling multiple client connections
 
@@ -38,7 +39,9 @@ def increaseActiveConnections():
 def decreaseActiveConnections():
 	global ACTIVE_CONNECTIONS
 	ACTIVE_CONNECTIONS -=1
-			
+
+def clearTerminal():
+	os.system('clear')
 
 def createSocketServer():
 	# Create new socket
@@ -74,8 +77,10 @@ def clientThread(conn, addr):
 	while clientStillConnected:
 		data = parseBytestr(conn.recv(1024))
 		print('From client:', data)
-		if data == 'exit': clientStillConnected = False
 
+		# Handle income data
+		if data == 'exit': clientStillConnected = False
+		elif data == 'clear': clearTerminal()
 
 
 	conn.close()
