@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HomeController</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Main -->
+    <string name="main_searchBtn">Search</string>
+    <string name="main_confBtn">Configure</string>
+
+</resources>

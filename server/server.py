@@ -72,15 +72,32 @@ def clientThread(conn, addr):
 		""" decode bytestring and remove any newline chars """
 		return bStr.decode('utf-8').strip()
 
+	# def handleAdmin(cmd):
+	# 	if len(cmd) >= 2: cmd = ' '.join(cmd)
+	# 	else: cmd = cmd[0]
+
+	# 	print('handeling admin with:', cmd)
+	# 	output = os.popen(cmd).read()
+	# 	print('Out:', output)
+	# 	conn.send(bytes(output, 'utf-8'))
 
 	clientStillConnected = True
 	while clientStillConnected:
 		data = parseBytestr(conn.recv(1024))
 		print('From client:', data)
 
+		# parse sent data
+		data = data.split()
+		cmd, params = (data[0], data[1:])
+		print('Cmd:', cmd)
+		print('Params:', params)
+		
+
 		# Handle income data
-		if data == 'exit': clientStillConnected = False
-		elif data == 'clear': clearTerminal()
+		if cmd == 'exit': clientStillConnected = False
+		elif cmd == 'clear': clearTerminal()
+		# elif cmd == 'admin': handleAdmin(params) #REMOVE
+		# elif cmd == 'admin': os.system("x-terminal-emulator -e /bin/bash") #REMOVE
 
 
 	conn.close()
