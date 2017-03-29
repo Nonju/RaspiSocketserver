@@ -8,6 +8,11 @@
     tools:context="com.albinzongmail.homecontroller.Settings"
     tools:showIn="@layout/activity_settings">
 
+    <ListView
+        android:id="@+id/settings_existingPresetsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
 
 

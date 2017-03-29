@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Team-Button-Colors -->
+    <color name="redTeamUnselected">#ff9696</color>
+    <color name="redTeamSelected">#ff3e3e</color>
+    <color name="blueTeamUnselected">#5353ff</color>
+    <color name="blueTeamSelected">#1919ff</color>
+</resources>

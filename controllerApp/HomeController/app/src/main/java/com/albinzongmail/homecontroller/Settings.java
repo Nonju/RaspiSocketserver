@@ -23,15 +23,21 @@ public class Settings extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         Log.d(TAG, "Setting FAB image");
         fab.setImageResource(R.mipmap.ic_add_black);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                addPresetBtnClicked();
             }
         });
 
         Log.d(TAG, "OnCreate finished");
+    }
+
+    private void addPresetBtnClicked() {
+
     }
 
 }

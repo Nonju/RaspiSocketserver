@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="25"
+    tools:context="com.albinzongmail.whopressedfirstbtclient.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/main_scoreHeader"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:weightSum="4"
+        android:orientation="horizontal">
+
+        <!-- Keeps track of Team-Red Scores -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/main_redScoreLabel"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/main_redScore"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/main_defaultScore"/>
+
+        <!-- Keeps track of Team-Blue Scores -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/main_blueScoreLabel"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/main_blueScore"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/main_defaultScore"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/main_selectRedTeam"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/redTeamUnselected"
+            android:text="@string/main_redTeamBtn"/>
+        <Button
+            android:id="@+id/main_selectBlueTeam"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/blueTeamUnselected"
+            android:text="@string/main_blueTeamBtn"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/main_submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="19"
+        android:text="@string/main_submitBtn"
+        android:textSize="@dimen/main_largeTextSize" />
+
+</LinearLayout>

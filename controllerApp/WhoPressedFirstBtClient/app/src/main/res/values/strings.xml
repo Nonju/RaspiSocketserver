@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WhoPressedFirst</string>
+    <string name="main_redTeamBtn">Red Team</string>
+    <string name="main_blueTeamBtn">Blue Team</string>
+    <string name="main_submitBtn">PUSH!</string>
+    <string name="main_redScoreLabel">Red Score:</string>
+    <string name="main_blueScoreLabel">Blue Score:</string>
+    <string name="main_defaultScore">-</string>
+</resources>
