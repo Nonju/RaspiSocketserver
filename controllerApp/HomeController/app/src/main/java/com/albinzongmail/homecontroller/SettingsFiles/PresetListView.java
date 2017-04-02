@@ -1,19 +1,28 @@
 package com.albinzongmail.homecontroller.SettingsFiles;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.albinzongmail.homecontroller.R;
+import com.albinzongmail.homecontroller.Settings;
 
 /**
  * Created by hannes on 2017-03-29.
  */
 
 public class PresetListView extends RelativeLayout {
+
+    private TextView presetIP;
+    private RadioButton radioBtn;
 
     public PresetListView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -28,13 +37,22 @@ public class PresetListView extends RelativeLayout {
     }
 
     private void setupChildren() {
-        titleTextView = (TextView) findViewById(R.id.item_titleTextView);
-        //descTextView = (TextView) findViewById(R.id.item_descriptionTextView);
+        presetIP = (TextView) findViewById(R.id.settings_itemPresetIP);
+        radioBtn = (RadioButton) findViewById(R.id.settings_itemPresetRadiobutton);
+        radioBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) { radioButtonClicked(); }
+        });
+    }
+
+    private void radioButtonClicked() {
+        Log.d("---RADIOBUTTON----", "Radiobutton toggled");
+        radioBtn.toggle();
     }
 
 
-    public void setItem(ShoppingList item) {
-        titleTextView.setText(item.getTitle());
-        //descTextView.setText(item.getDescription());
+    public void setItem(ConnectionPreset item) {
+        presetIP.setText(item.getIP());
+        radioBtn.setChecked(item.isSelected());
     }
 }

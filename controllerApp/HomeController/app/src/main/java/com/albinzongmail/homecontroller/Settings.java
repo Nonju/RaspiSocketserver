@@ -1,16 +1,30 @@
 package com.albinzongmail.homecontroller;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.albinzongmail.homecontroller.SettingsFiles.ConnectionPreset;
+import com.albinzongmail.homecontroller.SettingsFiles.PresetListAdapter;
+import com.albinzongmail.homecontroller.Util.Exceptions.InvalidIpAddress;
+import com.albinzongmail.homecontroller.Util.ValidateIP;
 
 public class Settings extends AppCompatActivity {
 
     private static final String TAG = "----Settings----";
+    private static final String ERRORTAG = "----SettingsError----";
+
+    private ListView presetListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +47,58 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        // Setup preset-listview
+        PresetListAdapter adapter = new PresetListAdapter(this);
+        presetListView = (ListView) findViewById(R.id.settings_presetListView);
+        presetListView.setAdapter(adapter);
+
         Log.d(TAG, "OnCreate finished");
     }
 
     private void addPresetBtnClicked() {
+        Toast.makeText(this, "Adding new preset!", Toast.LENGTH_SHORT).show();
+
+        // Setup form container
+        LinearLayout popoverContainer = new LinearLayout(this);
+        popoverContainer.setOrientation(LinearLayout.VERTICAL);
+
+        // Setup inputfield for new preset value
+        final EditText newIP = new EditText(this);
+        newIP.setHint("Enter new server-IP!");
+
+        // Add to container
+        popoverContainer.addView(newIP);
+
+        // Create new popover builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add new preset!");
+        builder.setView(popoverContainer);
+
+        // Handle user answers (setup buttons)
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                PresetListAdapter adapter = (PresetListAdapter) presetListView.getAdapter();
+                String newIPValue = newIP.getText().toString();
+
+                // Validate IP
+                try { ValidateIP.IsValid(newIPValue); }
+                catch (InvalidIpAddress e) {
+                    Log.d(ERRORTAG, e.getMessage());
+                    Toast.makeText(Settings.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                // Add new preset to list
+                adapter.add(new ConnectionPreset(newIPValue));
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) { dialogInterface.cancel(); }
+        });
+
+        // Display form to user
+        builder.show();
 
     }
 

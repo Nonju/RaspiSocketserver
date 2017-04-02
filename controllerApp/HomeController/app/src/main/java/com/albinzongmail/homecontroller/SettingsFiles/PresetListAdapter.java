@@ -27,11 +27,11 @@ public class PresetListAdapter extends ArrayAdapter<ConnectionPreset> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        PresetListAdapter shoppingListView = (PresetListAdapter)convertView;
+        PresetListView presetListView = (PresetListView)convertView;
         Log.d("SH_L_ADAPTER", "INFLATE");
-        if (shoppingListView == null) shoppingListView = PresetListAdapter.inflate(parent);
-        shoppingListView.setItem(getItem(position));
-        return shoppingListView;
+        if (presetListView == null) presetListView = PresetListView.inflate(parent);
+        presetListView.setItem(getItem(position));
+        return presetListView;
     }
 
 }
