@@ -25,6 +25,7 @@
 const char* ssid = "comhem_961AB0";
 const char* password = "r8cj15k5";
 char* command = "";
+String commandStr;
 
 WiFiServer server(23);
 WiFiClient serverClients[MAX_SRV_CLIENTS];
@@ -60,11 +61,71 @@ void strClear(char* str) {
   memset(str, 0, sizeof str);  
 }
 
+void strTrim(char str[]) {
+  // Get index of first non-whitespace char
+  unsigned int start = 0;
+  while (str[start] == ' ') start++;
+
+  // Get index of last non-whitespace char
+  unsigned int end = strlen(str);
+  while (str[end-1] == ' ') end--;
+
+  // Get length of new string
+  if (end <= start) return;
+  unsigned int len = end - start;
+
+  // Store trimed string to tmp-var
+  char tmp[len];
+  memcpy(tmp, &str[start], len);
+  tmp[len] = '\0';
+
+  // Copy back to original 
+  memset(str, 0, sizeof(char));
+  strcpy(str, tmp);
+}
+
+bool strCompare(const char* original, const char* compare) {
+  size_t originalLen = strlen(original);
+  size_t compareLen = strlen(compare);
+
+  // If not same length --> not equal
+  Serial.write("\rComparing lengths ");
+  Serial.println((int)originalLen);
+  Serial.write(" with ");
+  Serial.println((int)compareLen);
+  Serial.write(1337);
+  Serial.println(4711);
+  if ((int)originalLen != (int)compareLen) return false;
+
+  // Compare string chars
+  for (int i = 0; i < originalLen; i++) {
+    Serial.write("\rComparing ");
+    Serial.write(original);
+    Serial.write(" with ");
+    Serial.write(compare);
+    if (original[i] != compare[i]) return false;
+  }
+
+  // Passed all tests --> strings are equal
+  Serial.write("\rPassed all tests\r");
+  return true;
+}
+
 void parseCommand(char* cmd, char* value) {
+  strTrim(cmd);
+  strTrim(value);
+  
   Serial.write(cmd);
   Serial.write(" | ");
   Serial.write(value);
   Serial.write('\r');
+
+  if (strCompare(cmd, "light")) {
+    Serial.write("Equals\r");
+  }
+  else {
+    Serial.write("NOT equals\r");
+  }
 
   
   if (strcmp(cmd, "light") == 0) {
@@ -90,6 +151,9 @@ void handleConnectionData(char newChar) {
   if (newChar == '\r') {
     Serial.write(command);
     Serial.write('\r');
+    Serial.write("NEW");
+    Serial.println(F(commandStr));
+    Serial.write('\r');
 
     char* cmd = strtok(command, " ");
     char* value = strtok(NULL, " ");
@@ -100,6 +164,7 @@ void handleConnectionData(char newChar) {
     //Serial.write(newChar);
     //command = strcat(command, newChar);
     strAppend(command, newChar);
+    commandStr += newChar;
   }
 }
 
