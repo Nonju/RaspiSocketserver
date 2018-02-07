@@ -17,6 +17,7 @@ import com.albinzongmail.homecontroller.Settings;
 
 /**
  * Created by hannes on 2017-03-29.
+ *
  */
 
 public class PresetListView extends RelativeLayout {
@@ -52,7 +53,7 @@ public class PresetListView extends RelativeLayout {
 
 
     public void setItem(ConnectionPreset item) {
-        presetIP.setText(item.getIP());
+        presetIP.setText(item.getName());
         radioBtn.setChecked(item.isSelected());
     }
 }

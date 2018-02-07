@@ -22,10 +22,12 @@
 
 //how many clients should be able to telnet to this ESP8266
 #define MAX_SRV_CLIENTS 1
+
 const char* ssid = "comhem_961AB0";
 const char* password = "r8cj15k5";
+
 char* command = "";
-String commandStr;
+//String commandStr;
 
 WiFiServer server(23);
 WiFiClient serverClients[MAX_SRV_CLIENTS];
@@ -58,17 +60,25 @@ void strAppend(char* origin, char c) {
 }
 
 void strClear(char* str) {
+  Serial.write("running strClear");
   memset(str, 0, sizeof str);  
 }
 
 void strTrim(char str[]) {
+  Serial.write("\r\rTRIMMING: (");
+  Serial.write(str);
+  Serial.write(")\r\r");
+  
   // Get index of first non-whitespace char
   unsigned int start = 0;
-  while (str[start] == ' ') start++;
+  //while (str[start] == ' ' || str[start] == '\r') start++;
+  while (!isAlpha(str[start])) start++;
 
   // Get index of last non-whitespace char
   unsigned int end = strlen(str);
-  while (str[end-1] == ' ') end--;
+  if (end == 0 || end == 1) return; // No need to trim if got nothing to trim
+  //while (str[end-1] == ' ') end--;
+  while (!isAlpha(str[end-1])) end--;
 
   // Get length of new string
   if (end <= start) return;
@@ -82,6 +92,10 @@ void strTrim(char str[]) {
   // Copy back to original 
   memset(str, 0, sizeof(char));
   strcpy(str, tmp);
+ 
+  Serial.write("After trim: (");
+  Serial.write(str);
+  Serial.write(")\r\r");
 }
 
 bool strCompare(const char* original, const char* compare) {
@@ -90,19 +104,20 @@ bool strCompare(const char* original, const char* compare) {
 
   // If not same length --> not equal
   Serial.write("\rComparing lengths ");
-  Serial.println((int)originalLen);
+  Serial.println(originalLen);
   Serial.write(" with ");
-  Serial.println((int)compareLen);
-  Serial.write(1337);
-  Serial.println(4711);
-  if ((int)originalLen != (int)compareLen) return false;
+  Serial.println(compareLen);
 
+  //if ((int)originalLen != (int)compareLen) return false;
+
+  int smallestSize = originalLen < compareLen ? originalLen : compareLen;
   // Compare string chars
-  for (int i = 0; i < originalLen; i++) {
-    Serial.write("\rComparing ");
-    Serial.write(original);
-    Serial.write(" with ");
-    Serial.write(compare);
+  for (int i = 0; i < smallestSize; i++) {
+    Serial.write("\rComparing (");
+    Serial.write(original[i]);
+    Serial.write(") with (");
+    Serial.write(compare[i]);
+    Serial.write(")\r\r");
     if (original[i] != compare[i]) return false;
   }
 
@@ -113,22 +128,24 @@ bool strCompare(const char* original, const char* compare) {
 
 void parseCommand(char* cmd, char* value) {
   strTrim(cmd);
-  strTrim(value);
+  //Serial.write("Between\r\r");
+  //strTrim(value);
   
+  Serial.write("Finished trimming\r\r");
   Serial.write(cmd);
   Serial.write(" | ");
   Serial.write(value);
   Serial.write('\r');
 
   if (strCompare(cmd, "light")) {
-    Serial.write("Equals\r");
+    Serial.write("\rEquals\r");
   }
   else {
-    Serial.write("NOT equals\r");
+    Serial.write("\rNOT equals\r");
   }
 
   
-  if (strcmp(cmd, "light") == 0) {
+  /*if (strcmp(cmd, "light") == 0) {
     // Code for turning light on / off based on passed args
     if (strcmp(value, "on") == 0) {
       Serial.write("ON");
@@ -142,29 +159,26 @@ void parseCommand(char* cmd, char* value) {
     Serial.write('\r');
   }
   else Serial.write("No command matched");
-  
+  */
 }
 
 void handleConnectionData(char newChar) {
-  //Serial.write("Got data: " + incoming.read());
-  //Serial.write(incoming.read());
+  
   if (newChar == '\r') {
+    Serial.write("New Command: ");
     Serial.write(command);
-    Serial.write('\r');
-    Serial.write("NEW");
-    Serial.println(F(commandStr));
     Serial.write('\r');
 
     char* cmd = strtok(command, " ");
     char* value = strtok(NULL, " ");
-    parseCommand(cmd, value); // Re-add when implemented function
+    parseCommand(cmd, value);
     strClear(command); // Reset stored command
   }
   else {
-    //Serial.write(newChar);
+    Serial.write(newChar);
     //command = strcat(command, newChar);
     strAppend(command, newChar);
-    commandStr += newChar;
+    //commandStr += newChar;
   }
 }
 

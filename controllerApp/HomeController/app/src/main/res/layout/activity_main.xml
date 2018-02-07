@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.albinzongmail.homecontroller.MainActivity">
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/main_textOutputContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,8 +55,36 @@
             android:layout_weight="1"
             android:textAllCaps="false"/>
 
-    </LinearLayout>
+    </LinearLayout> -->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/main_searchBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/main_searchBtn"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/main_configureBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/main_confBtn"
+            android:textAllCaps="false" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/main_commandsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Commands"/>
 
 
 </LinearLayout>

@@ -4,10 +4,17 @@
 
     <!-- Default -->
     <string name="default_nullvalue">null</string>
+    <string name="default_notYetImplemented">Module not yet implemented</string>
 
     <!-- Main -->
     <string name="main_searchBtn">Search</string>
     <string name="main_confBtn">Configure</string>
+
+    <!-- Settings -->
+    <string name="settings_newPresetTitle">"Add new preset!"</string>
+    <string name="settings_newPresetNameHint">"Enter preset name:"</string>
+    <string name="settings_newIpHint">"Enter remote IP:"</string>
+    <string name="settings_newPortHint">Enter port number: (default 1337)</string>
 
 
 
